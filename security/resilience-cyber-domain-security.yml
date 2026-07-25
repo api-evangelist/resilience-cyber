@@ -1,0 +1,63 @@
+generated: '2026-07-25'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: cyberresilience.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 14 23:22:41 2026 GMT
+  hsts: false
+- host: portal.cyberresilience.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 29 23:59:59 2026 GMT
+  hsts: null
+- host: auth.cyberresilience.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 21 18:22:06 2026 GMT
+  hsts: false
+- host: trust.cyberresilience.com
+  https: true
+  cert_expires: Sep 26 00:42:42 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+  note: Vanta-hosted trust center; hand-probed 2026-07-25 (not in apis.yml host set).
+- host: api.prod.resilienceinsurance.app
+  https: true
+  cert_expires: Dec  1 23:59:59 2026 GMT
+  hsts: false
+  http_status: 404
+  note: >-
+    Private product API named as the OAuth audience. Serves a valid certificate
+    but 404s anonymously and sends no HSTS header. Hand-probed 2026-07-25.
+domains:
+- domain: cyberresilience.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine
+- domain: resilienceinsurance.app
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
+  note: >-
+    Registrable domain of the private product API. DMARC is p=none (monitor
+    only) and reports to dmarc@resilienceinsurance.com. Hand-probed 2026-07-25.
+findings:
+- >-
+  No CAA records on either registrable domain — certificate issuance is not
+  constrained to named CAs.
+- >-
+  No DNSSEC on either registrable domain.
+- >-
+  HSTS is present only on the Vanta-hosted trust center; the marketing site, the
+  Auth0 tenant host and the product API host send no Strict-Transport-Security
+  header.
+- >-
+  cyberresilience.com DMARC is p=quarantine; resilienceinsurance.app DMARC is
+  p=none.

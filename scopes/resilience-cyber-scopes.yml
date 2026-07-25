@@ -1,0 +1,81 @@
+generated: '2026-07-25'
+method: searched
+source: https://auth.cyberresilience.com/.well-known/openid-configuration
+local_copy: well-known/resilience-cyber-openid-configuration.json
+note: >-
+  These are the scopes the Auth0 tenant advertises in its discovery document and
+  the scopes the portal actually requests on /authorize. They are OpenID Connect
+  standard scopes and Auth0 profile-claim scopes — NOT product scopes. No
+  insurance-domain scope surface (policy, quote, bind, claim, submission,
+  portfolio) is published anywhere on the Resilience estate, and there is no
+  scopes/permissions reference page to search: cyberresilience.com soft-404s
+  every developer path. Absence of a domain scope model is the finding, not a
+  gap in this harvest.
+schemes:
+- name: Auth0OIDC
+  source: well-known/resilience-cyber-openid-configuration.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.cyberresilience.com/authorize
+    tokenUrl: https://auth.cyberresilience.com/oauth/token
+  - flow: clientCredentials
+    tokenUrl: https://auth.cyberresilience.com/oauth/token
+requested_by_portal:
+- openid
+- profile
+- email
+- offline_access
+scopes:
+- scope: openid
+  description: Issue an ID token — required for OpenID Connect authentication.
+  kind: oidc-standard
+  requested_by_portal: true
+- scope: profile
+  description: Access the end user's default profile claims.
+  kind: oidc-standard
+  requested_by_portal: true
+- scope: email
+  description: Access the end user's email address.
+  kind: oidc-standard
+  requested_by_portal: true
+- scope: email_verified
+  description: Access the end user's email verification status.
+  kind: auth0-claim
+- scope: offline_access
+  description: Issue a refresh token so the portal session can be renewed.
+  kind: oidc-standard
+  requested_by_portal: true
+- scope: name
+  description: Access the end user's full name claim.
+  kind: auth0-claim
+- scope: given_name
+  description: Access the end user's given-name claim.
+  kind: auth0-claim
+- scope: family_name
+  description: Access the end user's family-name claim.
+  kind: auth0-claim
+- scope: nickname
+  description: Access the end user's nickname claim.
+  kind: auth0-claim
+- scope: picture
+  description: Access the end user's profile picture claim.
+  kind: auth0-claim
+- scope: created_at
+  description: Access the end user's account creation timestamp.
+  kind: auth0-claim
+- scope: identities
+  description: Access the end user's linked identity providers.
+  kind: auth0-claim
+- scope: phone
+  description: Access the end user's phone number claim.
+  kind: oidc-standard
+- scope: address
+  description: Access the end user's address claim.
+  kind: oidc-standard
+product_scopes:
+  published: false
+  audience: https://api.prod.resilienceinsurance.app
+  note: >-
+    Any product-level scopes on the private audience would only be visible to an
+    authenticated broker or policyholder client. They cannot be enumerated
+    anonymously and are not documented publicly.

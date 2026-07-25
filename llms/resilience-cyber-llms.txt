@@ -1,0 +1,55 @@
+# Resilience (cyberresilience.com)
+
+> Resilience is a US specialty cyber-risk company that underwrites cyber insurance and technology errors-and-omissions coverage and runs the security analytics, risk-quantification and claims service around it. Founded 2016, headquartered in San Francisco, distributed through appointed brokers rather than direct-to-consumer. **Resilience publishes no developer portal, no API reference, no OpenAPI or AsyncAPI document, no SDK, no CLI and no public Postman collection.** Its only anonymous machine-readable surface is the Auth0 authorization server that guards its client/broker portal. Treat any claim of a public Resilience API as unverified.
+
+<!--
+generated: 2026-07-25
+method: generated
+source: apis.yml + artifacts in api-evangelist/resilience-cyber (no provider llms.txt exists;
+        https://cyberresilience.com/llms.txt returns HTTP 200 but serves the WordPress
+        marketing homepage — a soft 404, not a document)
+-->
+
+## What Resilience actually publishes
+
+- [Website](https://cyberresilience.com/): WordPress marketing site. Every unknown path returns HTTP 200 with the homepage body, so status codes alone are not evidence a page exists.
+- [Client and broker portal](https://portal.cyberresilience.com/): login wall. Redirects to `/v2/api/auth/login`, then to the Auth0 tenant.
+- [Trust Center](https://trust.cyberresilience.com/): Vanta-hosted; content renders client-side, so certifications are not readable by an HTTP client.
+- [Brokers](https://cyberresilience.com/brokers/): distribution is relationship-based broker submission, not an integration surface.
+
+## Identity surface (the only machine-readable contract)
+
+- [OpenID Connect discovery](https://auth.cyberresilience.com/.well-known/openid-configuration): issuer `https://auth.cyberresilience.com/`.
+- [OAuth 2.0 Authorization Server Metadata (RFC 8414)](https://auth.cyberresilience.com/.well-known/oauth-authorization-server): byte-identical to the OIDC document.
+- [JWKS](https://auth.cyberresilience.com/.well-known/jwks.json)
+- Authorization: `https://auth.cyberresilience.com/authorize` — the portal uses `response_type=code`, `code_challenge_method=S256`, `scope=openid profile email offline_access`, `audience=https://api.prod.resilienceinsurance.app`.
+- Token: `https://auth.cyberresilience.com/oauth/token`. Grants advertised include authorization_code, client_credentials, refresh_token, device_code, token-exchange and jwt-bearer. DPoP (ES256) and CIBA backchannel authentication are advertised.
+- Scopes advertised are OpenID Connect standard and Auth0 profile-claim scopes only. **No insurance-domain scopes (policy, quote, bind, claim, submission, portfolio) are published anywhere.**
+
+## Product API
+
+- Audience: `https://api.prod.resilienceinsurance.app` — real, named in the portal's authorize request, and **private**. Probed 2026-07-25: `/`, `/openapi.json`, `/openapi.yaml`, `/swagger.json`, `/v1/openapi.json`, `/api-docs`, `/docs`, `/redoc`, `/graphql`, `/mcp` and `/.well-known/oauth-protected-resource` all return 404 anonymously.
+
+## Artifacts in this repo
+
+- `well-known/resilience-cyber-well-known.yml` — the /.well-known/ index, with the WordPress soft-404s marked so they are not mistaken for hits.
+- `well-known/resilience-cyber-openid-configuration.json`, `well-known/resilience-cyber-oauth-authorization-server.json`, `well-known/resilience-cyber-jwks.json` — saved verbatim.
+- `authentication/resilience-cyber-authentication.yml` — the full OAuth/OIDC profile, endpoints, grants and sender-constraining posture.
+- `scopes/resilience-cyber-scopes.yml` — the advertised scope set, labelled OIDC-standard vs Auth0-claim.
+- `conformance/resilience-cyber-conformance.yml` — which standards the estate does and does not meet, including the negative ACORD/AL3/IVANS finding.
+- `security/resilience-cyber-domain-security.yml` — TLS, HSTS, DNSSEC, CAA, SPF, DMARC across five hosts and two registrable domains.
+- `security/resilience-cyber-trust-center.yml` — the Vanta trust center, with certifications deliberately left empty because they cannot be read anonymously.
+- `review.yml` — the full API Evangelist review, including every probe and its status.
+
+## Notable absences (measured, not assumed)
+
+- No OpenAPI, AsyncAPI, GraphQL, gRPC, MCP server, webhook catalog or event documentation.
+- No SDKs on npm, PyPI, Maven Central, NuGet, pkg.go.dev, RubyGems, Packagist or crates.io; no first-party GitHub organization (the `CyberResilience` GitHub org is an ISSA special-interest group, a different entity).
+- No public Postman workspace, collection or API (Postman public network search returns zero results).
+- No `security.txt`, no bug-bounty program on HackerOne or Bugcrowd, no responsible-disclosure page.
+- No status page (`status.cyberresilience.com` does not resolve), no changelog, no deprecation or versioning policy.
+- No ACORD, AL3, ACORD XML, NGDS, IVANS, Applied Epic, Vertafore or AMS360 posture — Resilience underwrites directly through appointed brokers rather than through agency-download plumbing.
+
+## Disambiguation
+
+This is the cyber insurance carrier at **cyberresilience.com** (sometimes "Resilience Cyber Insurance Solutions", formerly Arceo Labs). It is not National Resilience, the biomanufacturing CDMO at resilience.com, and not the healthcare company at resilience.care.

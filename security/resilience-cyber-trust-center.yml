@@ -1,0 +1,39 @@
+generated: '2026-07-25'
+method: searched
+probe: true
+url: https://trust.cyberresilience.com/
+platform: Vanta
+title: Resilience Trust Center
+status: 200
+evidence:
+- source: https://trust.cyberresilience.com/
+  kind: html-head
+  detail: >-
+    <title>Resilience Trust Center</title>, canonical
+    https://trust.cyberresilience.com, keywords "Trust, Security, Compliance,
+    Automation", assets served from assets.vanta.com
+    (index-trust-report.*.js/css) — a Vanta trust-report deployment.
+certifications: []
+certifications_enumerable: false
+note: >-
+  The trust center is real and reachable, but the page body is a 4.2 KB
+  single-page-app shell: all content is fetched client-side by an Apollo GraphQL
+  client using Vanta's signed-query mechanism, so no certification list,
+  subprocessor list, control list or document-request surface can be read
+  anonymously with an HTTP client. Certifications are left EMPTY on purpose —
+  naming SOC 2 or ISO 27001 here without fetching them would be fabrication.
+  Beware the near-name collision when searching: trust.resilience.care is a
+  different company (National Resilience / Resilience health), not this carrier.
+  Upgrading this artifact requires a rendered fetch of trust.cyberresilience.com.
+related:
+  conformance: conformance/resilience-cyber-conformance.yml
+  domain_security: security/resilience-cyber-domain-security.yml
+vulnerability_disclosure:
+  published: false
+  note: >-
+    Probed 2026-07-25: no RFC 9116 security.txt on cyberresilience.com,
+    trust.cyberresilience.com or portal.cyberresilience.com; /security,
+    /responsible-disclosure, /vulnerability-disclosure and /compliance all
+    soft-404 to the WordPress homepage; hackerone.com/cyberresilience and
+    bugcrowd.com/cyberresilience both 404. No public disclosure program or
+    security contact was found for a company whose product is cyber risk.

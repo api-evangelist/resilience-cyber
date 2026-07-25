@@ -1,0 +1,86 @@
+generated: '2026-07-25'
+method: searched
+source: live probes of every Resilience host on 2026-07-25
+note: >-
+  Resilience publishes no developer portal, so the only real /.well-known/
+  surface on the estate is the Auth0 tenant that guards the client/broker
+  portal. Every /.well-known/ path on the WordPress marketing host
+  (cyberresilience.com) returns HTTP 200 but serves the marketing homepage
+  byte-for-byte — a WordPress soft 404, not a document. Those are recorded
+  below with status 200 and soft_404: true so a later round does not mistake
+  the status code for a real hit. The private product API host
+  (api.prod.resilienceinsurance.app) 404s every discovery path anonymously.
+hosts:
+- host: https://auth.cyberresilience.com
+  role: Auth0 authorization server for the gated client/broker portal
+- host: https://cyberresilience.com
+  role: WordPress marketing site (soft-404s every unknown path)
+- host: https://api.prod.resilienceinsurance.app
+  role: private product API audience (not published)
+- host: https://portal.cyberresilience.com
+  role: gated client/broker application
+- host: https://trust.cyberresilience.com
+  role: Vanta-hosted Trust Center (client-rendered single-page app)
+documents:
+- host: https://auth.cyberresilience.com
+  path: /.well-known/openid-configuration
+  status: 200
+  file: resilience-cyber-openid-configuration.json
+  standard: OpenID Connect Discovery 1.0
+- host: https://auth.cyberresilience.com
+  path: /.well-known/oauth-authorization-server
+  status: 200
+  file: resilience-cyber-oauth-authorization-server.json
+  standard: RFC 8414 OAuth 2.0 Authorization Server Metadata
+  note: byte-identical to the OpenID Connect discovery document
+- host: https://auth.cyberresilience.com
+  path: /.well-known/jwks.json
+  status: 200
+  file: resilience-cyber-jwks.json
+  standard: RFC 7517 JSON Web Key Set
+- host: https://cyberresilience.com
+  path: /.well-known/security.txt
+  status: 200
+  soft_404: true
+  note: returns the marketing homepage, not an RFC 9116 document
+- host: https://cyberresilience.com
+  path: /security.txt
+  status: 200
+  soft_404: true
+- host: https://cyberresilience.com
+  path: /.well-known/api-catalog
+  status: 200
+  soft_404: true
+- host: https://cyberresilience.com
+  path: /.well-known/ai-plugin.json
+  status: 200
+  soft_404: true
+- host: https://cyberresilience.com
+  path: /llms.txt
+  status: 200
+  soft_404: true
+- host: https://trust.cyberresilience.com
+  path: /.well-known/security.txt
+  status: 200
+  soft_404: true
+  note: returns the Vanta trust-center SPA shell
+- host: https://portal.cyberresilience.com
+  path: /.well-known/security.txt
+  status: 404
+- host: https://api.prod.resilienceinsurance.app
+  path: /.well-known/openid-configuration
+  status: 404
+- host: https://api.prod.resilienceinsurance.app
+  path: /.well-known/oauth-protected-resource
+  status: 404
+  note: >-
+    RFC 9728 protected-resource metadata is absent, so the audience cannot be
+    discovered from the resource side — only from the portal's authorize
+    redirect.
+security_txt:
+  published: false
+  note: >-
+    No RFC 9116 security.txt on any Resilience host. No HackerOne
+    (hackerone.com/cyberresilience 404) or Bugcrowd (bugcrowd.com/cyberresilience
+    404) program, and /security, /responsible-disclosure, /vulnerability-disclosure
+    all soft-404 to the homepage. Notable for a cyber-insurance carrier.

@@ -1,0 +1,123 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  https://auth.cyberresilience.com/.well-known/openid-configuration and
+  https://auth.cyberresilience.com/.well-known/oauth-authorization-server,
+  fetched anonymously 2026-07-25
+note: >-
+  Every positive assertion below is evidenced by a document we fetched. Because
+  Resilience publishes no OpenAPI, no API-design standards (RFC 9457 problem
+  details, JSON:API, OData, pagination or idempotency conventions) can be
+  asserted either way — they are recorded as unknown rather than false where the
+  surface is simply not observable. The insurance-EDI standards are recorded as
+  false because they were actively searched for across the public estate and
+  found nowhere.
+standards:
+- id: openid-connect-discovery-1.0
+  conforms: true
+  evidence: >-
+    /.well-known/openid-configuration returns a valid OIDC discovery document
+    with issuer, authorization_endpoint, token_endpoint, userinfo_endpoint,
+    jwks_uri and claims_supported.
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: true
+  evidence: >-
+    /.well-known/oauth-authorization-server returns 200 with the same metadata
+    document.
+- id: oauth2
+  conforms: true
+  evidence: >-
+    authorization_endpoint + token_endpoint + grant_types_supported
+    (authorization_code, client_credentials, refresh_token).
+- id: rfc7636-pkce
+  conforms: true
+  evidence: >-
+    code_challenge_methods_supported [S256, plain]; the live portal /authorize
+    redirect uses code_challenge_method=S256.
+- id: rfc7517-jwks
+  conforms: true
+  evidence: /.well-known/jwks.json returns a JSON Web Key Set.
+- id: rfc7009-token-revocation
+  conforms: true
+  evidence: revocation_endpoint https://auth.cyberresilience.com/oauth/revoke
+- id: rfc8628-device-authorization-grant
+  conforms: true
+  evidence: >-
+    device_authorization_endpoint /oauth/device/code and grant type
+    urn:ietf:params:oauth:grant-type:device_code
+- id: rfc8693-token-exchange
+  conforms: true
+  evidence: grant type urn:ietf:params:oauth:grant-type:token-exchange advertised
+- id: rfc7523-jwt-bearer
+  conforms: true
+  evidence: grant type urn:ietf:params:oauth:grant-type:jwt-bearer advertised
+- id: rfc7591-dynamic-client-registration
+  conforms: true
+  evidence: registration_endpoint https://auth.cyberresilience.com/oidc/register
+  note: Auth0 tenant default; no partner self-registration is documented.
+- id: rfc9449-dpop
+  conforms: true
+  evidence: dpop_signing_alg_values_supported [ES256]
+  note: Advertised by the authorization server; enforcement by the product API is not observable.
+- id: openid-ciba
+  conforms: true
+  evidence: >-
+    backchannel_authentication_endpoint /bc-authorize with
+    backchannel_token_delivery_modes_supported [poll]
+- id: openid-backchannel-logout
+  conforms: true
+  evidence: backchannel_logout_supported true, backchannel_logout_session_supported true
+- id: rfc9728-oauth-protected-resource-metadata
+  conforms: false
+  evidence: >-
+    https://api.prod.resilienceinsurance.app/.well-known/oauth-protected-resource
+    returns 404.
+- id: fapi-2.0
+  conforms: false
+  evidence: >-
+    No FAPI profile claimed; the tenant still advertises implicit and password
+    grants and allows plain PKCE, which FAPI forbids.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: No security.txt on any Resilience host (all paths soft-404 or 404).
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI/Swagger document at any probed path on cyberresilience.com,
+    portal.cyberresilience.com or api.prod.resilienceinsurance.app.
+- id: asyncapi
+  conforms: false
+  evidence: No event, webhook or streaming documentation exists publicly.
+- id: graphql
+  conforms: false
+  evidence: https://api.prod.resilienceinsurance.app/graphql returns 404 anonymously.
+- id: acord-al3
+  conforms: false
+  evidence: >-
+    Full-text scans of the homepage, /brokers/, /products/threatonomics-risk-graph/,
+    /risk-operations-center/ and /about-us/ returned zero hits for ACORD, AL3,
+    ACORD XML, NGDS, IVANS, agency download, Applied Epic, Vertafore or AMS360.
+- id: acord-xml
+  conforms: false
+  evidence: same scan as acord-al3
+- id: ivans-agency-download
+  conforms: false
+  evidence: same scan as acord-al3
+- id: rfc9457-problem-details
+  conforms: unknown
+  evidence: No public API responses are observable; the product API 404s anonymously.
+- id: json-api
+  conforms: unknown
+  evidence: No public API responses are observable.
+compliance_program:
+  published: true
+  url: https://trust.cyberresilience.com/
+  platform: Vanta
+  certifications_enumerable: false
+  note: >-
+    A Vanta-hosted Trust Center is published at trust.cyberresilience.com
+    (HTTP 200, <title>Resilience Trust Center</title>). Its contents render
+    client-side through signed Apollo GraphQL queries, so the named
+    certifications and downloadable reports cannot be enumerated anonymously and
+    are deliberately NOT recorded here rather than guessed. See
+    security/resilience-cyber-trust-center.yml.

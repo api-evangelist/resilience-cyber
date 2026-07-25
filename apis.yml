@@ -40,8 +40,44 @@ tags:
 created: '2026-07-25'
 modified: '2026-07-25'
 specificationVersion: '0.19'
-apis: []
+apis:
+- name: Resilience Identity (Auth0 Authorization Server)
+  description: >-
+    The only publicly documented, machine-readable surface Resilience operates.
+    portal.cyberresilience.com — the gated client and broker application —
+    redirects through /v2/api/auth/login to an Auth0 tenant at
+    auth.cyberresilience.com, which serves OpenID Connect Discovery 1.0 and RFC
+    8414 OAuth 2.0 Authorization Server Metadata anonymously, along with a JWKS.
+    The tenant issues authorization-code + PKCE (S256) tokens for the private
+    audience https://api.prod.resilienceinsurance.app and advertises
+    client_credentials, device code, token exchange, JWT bearer, CIBA
+    backchannel authentication, backchannel logout and DPoP (ES256). This is an
+    identity surface, not a product API: the audience it names is an internal
+    product API that 404s every discovery path anonymously, there is no
+    self-serve client registration, and access requires an appointed-broker or
+    policyholder relationship. It is catalogued because it is real, anonymous
+    and machine-readable — and because it marks the honest boundary of what
+    Resilience publishes.
+  humanURL: https://portal.cyberresilience.com/
+  baseURL: https://auth.cyberresilience.com
+  tags:
+  - Authentication
+  - OpenID Connect
+  - OAuth 2.0
+  - Identity
+  - Insurance
+  properties:
+  - type: OpenIDConnect
+    url: https://auth.cyberresilience.com/.well-known/openid-configuration
+  - type: WellKnown
+    url: well-known/resilience-cyber-well-known.yml
+  - type: Authentication
+    url: authentication/resilience-cyber-authentication.yml
+  - type: OAuthScopes
+    url: scopes/resilience-cyber-scopes.yml
 common:
+- type: DomainSecurity
+  url: security/resilience-cyber-domain-security.yml
 - type: Website
   url: https://cyberresilience.com/
 - type: Blog
@@ -50,10 +86,42 @@ common:
   url: https://cyberresilience.com/?feed=rss2
 - type: TrustCenter
   url: https://trust.cyberresilience.com/
+- type: TrustCenter
+  url: security/resilience-cyber-trust-center.yml
+- type: Compliance
+  url: https://trust.cyberresilience.com/
 - type: SignUp
   url: https://portal.cyberresilience.com/
 - type: Authentication
   url: https://auth.cyberresilience.com/.well-known/openid-configuration
+- type: Authentication
+  url: authentication/resilience-cyber-authentication.yml
+- type: OAuthScopes
+  url: scopes/resilience-cyber-scopes.yml
+- type: WellKnown
+  url: well-known/resilience-cyber-well-known.yml
+- type: Conformance
+  url: conformance/resilience-cyber-conformance.yml
+- type: LLMsTxt
+  url: llms/resilience-cyber-llms.txt
+- type: Support
+  url: https://cyberresilience.com/contact-us/
+- type: TermsOfService
+  url: https://cyberresilience.com/terms-and-conditions/
+- type: PrivacyPolicy
+  url: https://cyberresilience.com/privacy-policy/
+- type: Demo
+  url: https://cyberresilience.com/request-demo
+- type: Press
+  url: https://cyberresilience.com/newsroom/press-releases/
+- type: CaseStudies
+  url: https://cyberresilience.com/resources/case-studies/
+- type: Research
+  url: https://cyberresilience.com/resources/industry-reports/
+- type: About
+  url: https://cyberresilience.com/about-us/
+- type: Leadership
+  url: https://cyberresilience.com/leadership/
 - type: LinkedIn
   url: https://www.linkedin.com/company/resilience-cyber/
 - type: Twitter
