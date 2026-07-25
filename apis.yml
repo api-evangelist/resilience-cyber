@@ -1,0 +1,71 @@
+aid: resilience-cyber
+url: https://raw.githubusercontent.com/api-evangelist/resilience-cyber/refs/heads/main/apis.yml
+name: Resilience
+kind: company
+description: >-
+  Resilience is a United States cyber-risk company that underwrites cyber
+  insurance and technology errors-and-omissions coverage while running the
+  security analytics and claims service around it. Founded in 2016 by operators
+  out of US military and intelligence backgrounds and headquartered in San
+  Francisco, it distributes through brokers rather than direct-to-consumer, and
+  positions itself as a specialty cyber carrier whose underwriting is fed by its
+  own risk model — the Threatonomics Risk Graph — plus a 24/7 in-house Risk
+  Operations Center and claims/incident-response team. Product lines are cyber
+  insurance, technology E&O, claims and incident response, security investment
+  prioritization, and multi-entity/portfolio risk, sold in the US and in UK,
+  Canadian, German, French, Italian and Spanish locales. Its API posture is
+  partner-gated and honest to record as such: there is no developer portal, no
+  public API reference, no downloadable OpenAPI, and no public Postman
+  collection anywhere on cyberresilience.com. The only machine-facing surface is
+  portal.cyberresilience.com, a client and broker application that 302-redirects
+  to an Auth0 tenant at auth.cyberresilience.com requesting an access token for
+  the private audience https://api.prod.resilienceinsurance.app — an internal
+  product API, not a published one. No ACORD, AL3, ACORD XML, NGDS, IVANS,
+  Applied Epic or Vertafore reference appears anywhere on the public site, which
+  is itself a finding for a US specialty carrier: this is a direct-underwriting,
+  broker-relationship distribution model rather than an agency-download one.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Insurance
+- United States
+- Cyber Insurance
+- Property and Casualty
+- Insurtech
+- Underwriting
+- Claims
+- Risk Data
+- Technology Errors and Omissions
+- Broker
+- Specialty Insurance
+created: '2026-07-25'
+modified: '2026-07-25'
+specificationVersion: '0.19'
+apis: []
+common:
+- type: Website
+  url: https://cyberresilience.com/
+- type: Blog
+  url: https://cyberresilience.com/blog/
+- type: BlogRSS
+  url: https://cyberresilience.com/?feed=rss2
+- type: TrustCenter
+  url: https://trust.cyberresilience.com/
+- type: SignUp
+  url: https://portal.cyberresilience.com/
+- type: Authentication
+  url: https://auth.cyberresilience.com/.well-known/openid-configuration
+- type: LinkedIn
+  url: https://www.linkedin.com/company/resilience-cyber/
+- type: Twitter
+  url: https://x.com/ResilienceSays
+- type: YouTube
+  url: https://www.youtube.com/@Cyber.Resilience
+- type: ContactForm
+  url: https://cyberresilience.com/contact-us/
+- type: Careers
+  url: https://job-boards.greenhouse.io/resilience
+- type: Partners
+  url: https://cyberresilience.com/brokers/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

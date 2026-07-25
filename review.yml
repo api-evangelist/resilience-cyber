@@ -1,0 +1,234 @@
+aid: resilience-cyber
+name: Resilience
+review:
+  question: Does Resilience publish a public, self-serve developer portal or downloadable API specifications for its cyber insurance products?
+  answer: false
+  date: '2026-07-25'
+  reviewer: API Evangelist
+  homeMarket: United States
+  tier: specialty-cyber
+findings:
+  summary: |
+    Resilience (cyberresilience.com) publishes NO public developer portal, NO
+    API reference, and NO downloadable OpenAPI/Swagger specification. Every
+    conventional developer path was probed on 2026-07-25 and each is either a
+    non-resolving host or a WordPress soft-404 that returns the marketing
+    homepage byte-for-byte (630,315 bytes, <title>Home Page - Resilience</title>).
+    The only machine-facing surface found is portal.cyberresilience.com, a
+    client/broker application that immediately 302-redirects to an Auth0 tenant
+    at auth.cyberresilience.com. That redirect is the single most informative
+    artifact on the estate: it requests an authorization-code + PKCE (S256)
+    token for the audience https://api.prod.resilienceinsurance.app — a private
+    product API that exists but is not published. That host returns 404 for
+    /openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs,
+    /docs, /spec, /redoc, /graphql and /health, and serves no
+    .well-known/openid-configuration of its own.
+
+    ACORD posture: no ACORD reference found. Full-text scans of the homepage,
+    the brokers page, the Threatonomics Risk Graph product page and the Risk
+    Operations Center page returned zero hits for ACORD, AL3, ACORD XML, NGDS,
+    IVANS, agency download, Applied Epic, Vertafore or AMS360. Targeted web
+    search for Resilience alongside those terms also returned nothing
+    company-specific. For a US specialty cyber carrier this is consistent with
+    the market seam: Resilience underwrites directly through appointed broker
+    relationships and its own portal rather than through the IVANS/agency-download
+    plumbing that moves personal and commercial lines between carriers and agency
+    management systems.
+
+    Quote / bind / issue / FNOL: none are exposed as a public API. Quoting and
+    binding happen through broker submission and the gated portal; FNOL is a
+    human process — the site routes claims to /en-gb/file-a-claim/ and a 24/7
+    in-house claims and incident-response team, not to an endpoint. The only
+    self-serve interactive tool on the public estate is a marketing lead-capture
+    calculator at building.cyberresilience.com/cyber-risk-calculator.
+
+    Note on "API" language in third-party write-ups: Resilience's own material
+    describes integrating with a client's third-party cloud services and internal
+    systems to run continuous risk assessment. That is Resilience CONSUMING
+    customer-side APIs as an inbound data collector; it is not Resilience
+    PUBLISHING an API. No connector catalog, integration directory or event
+    documentation is public.
+  developerPortal:
+    url: ''
+    confirmed: false
+    classification: none-found
+    note: No developer portal of any kind. Nearest surface is a partner/client login wall at https://portal.cyberresilience.com/.
+  probes:
+    - url: https://cyberresilience.com/
+      status: 200
+      note: WordPress 6.8.3 marketing site, Yoast SEO, WPML multilingual (en-US, en-GB, de, es, fr, fr-CA, it).
+    - url: https://developer.cyberresilience.com/
+      status: 000
+      note: Host does not resolve.
+    - url: https://developers.cyberresilience.com/
+      status: 000
+      note: Host does not resolve.
+    - url: https://docs.cyberresilience.com/
+      status: 000
+      note: Host does not resolve.
+    - url: https://api.cyberresilience.com/
+      status: 000
+      note: Host does not resolve.
+    - url: https://cyberresilience.com/developers/
+      status: 200
+      note: SOFT 404 — returns the marketing homepage (title "Home Page - Resilience"), not a developer page.
+    - url: https://cyberresilience.com/developer/
+      status: 200
+      note: SOFT 404 — returns the marketing homepage.
+    - url: https://cyberresilience.com/api/
+      status: 200
+      note: SOFT 404 — returns the marketing homepage.
+    - url: https://cyberresilience.com/partners/
+      status: 200
+      note: SOFT 404 — returns the marketing homepage. Broker content lives at /brokers/.
+    - url: https://cyberresilience.com/integrations/
+      status: 200
+      note: SOFT 404 — returns the marketing homepage.
+    - url: https://cyberresilience.com/brokers/
+      status: 200
+      note: Real page — broker relationship marketing, leadership bios, submission via relationship. No API, no ACORD, no integration docs.
+    - url: https://portal.cyberresilience.com/
+      status: 302
+      note: Redirects to Auth0 /authorize with audience https://api.prod.resilienceinsurance.app. LOGIN WALL — gated client/broker portal.
+    - url: https://auth.cyberresilience.com/.well-known/openid-configuration
+      status: 200
+      note: Auth0 tenant OIDC metadata, served anonymously. Confirms the auth model.
+    - url: https://auth.cyberresilience.com/.well-known/oauth-authorization-server
+      status: 200
+      note: Same Auth0 metadata document.
+    - url: https://api.prod.resilienceinsurance.app/
+      status: 404
+      note: Private product API audience. Root and all spec paths (/openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs, /docs, /spec, /redoc, /graphql, /health) return 404 anonymously.
+    - url: https://trust.cyberresilience.com/
+      status: 200
+      note: Vanta-hosted Trust Center. Compliance surface only — no API or developer documentation.
+    - url: https://building.cyberresilience.com/cyber-risk-calculator
+      status: 200
+      note: Marketing lead-capture cyber risk calculator. Not an API product.
+    - url: https://cyberresilience.com/robots.txt
+      status: 200
+      note: Yoast block; points to sitemap_index.xml (which is served as HTML). No API paths disclosed.
+  acordPosture: no ACORD reference found
+  acordEvidence:
+    searchedTerms:
+      - ACORD
+      - AL3
+      - ACORD XML
+      - ACORD certified
+      - NGDS
+      - IVANS
+      - agency download
+      - Applied Epic
+      - Vertafore
+      - AMS360
+    pagesScanned:
+      - https://cyberresilience.com/
+      - https://cyberresilience.com/brokers/
+      - https://cyberresilience.com/products/threatonomics-risk-graph/
+      - https://cyberresilience.com/risk-operations-center/
+      - https://cyberresilience.com/about-us/
+    result: Zero hits across all pages scanned and across targeted web search. No ACORD/EDI/agency-download posture is claimed publicly.
+  insuranceVerbs:
+    quote:
+      exposed: false
+      note: Broker submission and gated portal only. No public quote/rating API.
+    bind:
+      exposed: false
+      note: Underwriter-mediated through appointed brokers. No public bind API.
+    issue:
+      exposed: false
+      note: Policy issuance and documents delivered through the gated portal.
+    fnol:
+      exposed: false
+      note: Human FNOL — 24/7 in-house claims team and a "File a Claim" web form (https://cyberresilience.com/en-gb/file-a-claim/). No FNOL endpoint documented.
+    audience: partner-only (appointed brokers and existing policyholders)
+  authModel:
+    scheme: OAuth 2.0 authorization-code with PKCE (S256) via Auth0
+    issuer: https://auth.cyberresilience.com/
+    authorizationEndpoint: https://auth.cyberresilience.com/authorize
+    tokenEndpoint: https://auth.cyberresilience.com/oauth/token
+    jwksUri: https://auth.cyberresilience.com/.well-known/jwks.json
+    audience: https://api.prod.resilienceinsurance.app
+    grantTypesSupported:
+      - client_credentials
+      - authorization_code
+    scopesSupported:
+      - openid
+      - profile
+      - offline_access
+      - email
+    note: >-
+      Standard Auth0 tenant metadata, fetched anonymously. The scopes advertised
+      are Auth0/OIDC defaults, NOT product scopes — no insurance-domain scopes
+      (policy, quote, claim) are published anywhere. client_credentials appears
+      in tenant metadata but no partner client-credentials onboarding is
+      documented publicly.
+  webhooks:
+    documented: false
+    asyncapi: false
+    note: No event catalog, webhook documentation, or AsyncAPI document exists publicly. Absence is the finding.
+  postman:
+    public: false
+    note: Postman public network search for "cyberresilience" returned 0 workspaces, 0 collections, 0 APIs.
+  graphql:
+    public: false
+    note: https://api.prod.resilienceinsurance.app/graphql returns 404 anonymously. No public GraphQL surface.
+  grpc:
+    public: false
+    note: No published .proto files found.
+  githubOrganization:
+    found: false
+    note: api.github.com/orgs probes for resilience-cyber, resilienceinsurance, resilience-insurance and ResilienceCyber all returned 404.
+  transports:
+    - protocol: HTTPS
+      scheme: https
+      documented: false
+      note: A private product API exists behind Auth0 (audience https://api.prod.resilienceinsurance.app) but is not publicly documented.
+    - protocol: OIDC/OAuth2
+      scheme: https
+      baseURL: https://auth.cyberresilience.com/
+      documented: true
+      note: Only publicly documented machine-readable surface on the estate — Auth0 well-known metadata.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: None found.
+    - protocol: ACORD/EDI
+      documented: false
+      note: No ACORD AL3, ACORD XML, NGDS or IVANS agency-download posture claimed publicly.
+  specsHarvested: 0
+  gated: true
+  disambiguation: >-
+    NOT to be confused with api-evangelist/resilience (National Resilience,
+    the biomanufacturing CDMO at resilience.com), which is a different company
+    already in the network. This record is the cyber insurance carrier at
+    cyberresilience.com, sometimes written "Resilience Cyber Insurance
+    Solutions" (formerly Arceo Labs).
+sources:
+  - url: https://cyberresilience.com/
+    type: Website
+    note: Homepage; product and navigation inventory. Fetched 2026-07-25, HTTP 200.
+  - url: https://cyberresilience.com/about-us/
+    type: Website
+    note: Company story, founding, product lines. Fetched 2026-07-25, HTTP 200.
+  - url: https://cyberresilience.com/brokers/
+    type: Partners
+    note: Broker distribution page — relationship-based, no integration documentation. Fetched 2026-07-25, HTTP 200.
+  - url: https://portal.cyberresilience.com/
+    type: SignUp
+    note: Gated client/broker portal; 302 to Auth0. Fetched 2026-07-25.
+  - url: https://auth.cyberresilience.com/.well-known/openid-configuration
+    type: Authentication
+    note: Auth0 OIDC discovery document. Fetched 2026-07-25, HTTP 200.
+  - url: https://trust.cyberresilience.com/
+    type: TrustCenter
+    note: Vanta-hosted trust center. Fetched 2026-07-25, HTTP 200.
+actions:
+  openapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    Honest stub. Resilience exposes no public self-serve API surface, so apis[]
+    is intentionally empty. The record captures identity, the real gated
+    integration surface (Auth0 + private product API audience), and the
+    sector-defining negative signal: a US specialty cyber carrier with no ACORD,
+    AL3, NGDS or IVANS posture at all. That absence is the measurement.
