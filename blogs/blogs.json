@@ -1,0 +1,21 @@
+{
+  "repo": "resilience-cyber",
+  "feeds": [
+    {
+      "source": "https://cyberresilience.com/",
+      "feed_url": "https://cyberresilience.com/?feed=rss2",
+      "title": "",
+      "saved": 1,
+      "method": "discovered"
+    },
+    {
+      "source": "https://cyberresilience.com/blog/",
+      "feed_url": "https://cyberresilience.com/?feed=rss2",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    }
+  ],
+  "post_count": 1,
+  "fetched": "2026-08-01T15:49:00Z"
+}
