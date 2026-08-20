@@ -35,6 +35,18 @@ tags:
 - Claims
 - Risk Data
 - Technology Errors and Omissions
+- Brokers
+- Specialty Insurance
+tags_raw:
+- Insurance
+- United States
+- Cyber Insurance
+- Property and Casualty
+- Insurtech
+- Underwriting
+- Claims
+- Risk Data
+- Technology Errors and Omissions
 - Broker
 - Specialty Insurance
 created: '2026-07-25'
@@ -61,6 +73,11 @@ apis:
   humanURL: https://portal.cyberresilience.com/
   baseURL: https://auth.cyberresilience.com
   tags:
+  - Authentication
+  - OpenID Connect
+  - Identity
+  - Insurance
+  tags_raw:
   - Authentication
   - OpenID Connect
   - OAuth 2.0
