@@ -1,4 +1,4 @@
-# Resilience (resilience-cyber)
+# Resilience
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,76 +64,98 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Resilience is a United States cyber-risk company that underwrites cyber insurance and technology errors-and-omissions coverage while running the security analytics and claims service around it. Founded in 2016 and headquartered in San Francisco, it distributes through appointed brokers rather than direct-to-consumer, and positions itself as a specialty cyber carrier whose underwriting is fed by its own risk model — the Threatonomics Risk Graph — plus a 24/7 in-house Risk Operations Center and claims/incident-response team.
+Resilience is a United States cyber-risk company that underwrites cyber insurance and technology errors-and-omissions coverage while running the security analytics and claims service around it. Founded in 2016 by operators out of US military and intelligence backgrounds and headquartered in San Francisco, it distributes through brokers rather than direct-to-consumer, and positions itself as a specialty cyber carrier whose underwriting is fed by its own risk model — the Threatonomics Risk Graph — plus a 24/7 in-house Risk Operations Center and claims/incident-response team. Product lines are cyber insurance, technology E&O, claims and incident response, security investment prioritization, and multi-entity/portfolio risk, sold in the US and in UK, Canadian, German, French, Italian and Spanish locales. Its API posture is partner-gated and honest to record as such: there is no developer portal, no public API reference, no downloadable OpenAPI, and no public Postman collection anywhere on cyberresilience.com. The only machine-facing surface is portal.cyberresilience.com, a client and broker application that 302-redirects to an Auth0 tenant at auth.cyberresilience.com requesting an access token for the private audience https://api.prod.resilienceinsurance.app — an internal product API, not a published one. No ACORD, AL3, ACORD XML, NGDS, IVANS, Applied Epic or Vertafore reference appears anywhere on the public site, which is itself a finding for a US specialty carrier: this is a direct-underwriting, broker-relationship distribution model rather than an agency-download one.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/resilience-cyber/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/resilience-cyber/refs/heads/main/apis.yml)
+**Areas:** Insurance · United States · Cyber Insurance · Property and Casualty · Insurtech · Underwriting · Claims · Risk Data · Technology Errors and Omissions · Brokerage · Specialty Insurance
 
-> Not to be confused with [api-evangelist/resilience](https://github.com/api-evangelist/resilience) — National Resilience, the biomanufacturing CDMO at resilience.com. This record is the cyber insurance carrier at cyberresilience.com (formerly Arceo Labs).
+## Resilience on APIs.io
 
-## Tags
+Everything profiled for Resilience is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/resilience-cyber/](https://apis.io/providers/resilience-cyber/)** — or go straight to one of the APIs or properties below.
 
-- Insurance
-- United States
-- Cyber Insurance
-- Property and Casualty
-- Insurtech
-- Underwriting
-- Claims
-- Risk Data
-- Technology Errors and Omissions
-- Broker
-- Specialty Insurance
+### APIs (1)
 
-## Timestamps
+- [Resilience Identity (Auth0 Authorization Server)](https://apis.io/apis/resilience-cyber/resilience-identity-auth0-authorization-server/) — The only publicly documented, machine-readable surface Resilience operates. portal.cyberresilience.com — the gated client and broker application — redirects…
 
-- **Created:** 2026-07-25
-- **Modified:** 2026-07-25
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-**None.** Resilience publishes no public, self-serve API.
+#### Security (3)
 
-Every conventional developer path was probed on 2026-07-25. `developer.`, `developers.`, `docs.` and `api.cyberresilience.com` do not resolve. `/developers`, `/developer`, `/api`, `/partners` and `/integrations` all return HTTP 200 but are WordPress soft-404s that serve the marketing homepage byte-for-byte. There is no API reference, no downloadable OpenAPI or Swagger document, no public Postman collection (0 results), no GraphQL endpoint, no published `.proto`, and no webhook or AsyncAPI event catalog.
+Authentication, trust centre, and vulnerability disclosure.
 
-The only machine-facing surface is [portal.cyberresilience.com](https://portal.cyberresilience.com/), a client and broker application that 302-redirects to an Auth0 tenant at `auth.cyberresilience.com` requesting an authorization-code + PKCE token for the audience `https://api.prod.resilienceinsurance.app`. A product API exists; it is private, and its host returns 404 for every spec path anonymously.
+- [Resilience Cyber Authentication](https://apis.io/security/resilience-cyber/resilience-cyber-authentication/)
+- [Resilience Cyber Domain Security](https://apis.io/security/resilience-cyber/resilience-cyber-domain-security/)
+- [Resilience Cyber Trust Center](https://apis.io/security/resilience-cyber/resilience-cyber-trust-center/)
 
-### Insurance verbs
+#### OAuth scopes (1)
 
-| Verb | Public API | How it actually happens |
-| --- | --- | --- |
-| Quote | No | Broker submission and the gated portal |
-| Bind | No | Underwriter-mediated through appointed brokers |
-| Issue | No | Policy documents delivered inside the gated portal |
-| FNOL | No | 24/7 in-house claims team and a "File a Claim" web form |
+The permissions the API asks for.
 
-### ACORD posture
+- [Resilience Cyber Scopes](https://apis.io/scopes/resilience-cyber/resilience-cyber-scopes/)
 
-**No ACORD reference found.** Scans of the homepage, brokers page, Threatonomics Risk Graph page, Risk Operations Center page and about page returned zero hits for ACORD, AL3, ACORD XML, NGDS, IVANS, agency download, Applied Epic, Vertafore or AMS360 — and targeted web search found nothing company-specific either. Consistent with the US market seam: Resilience underwrites directly through broker relationships and its own portal, not through the IVANS/agency-download plumbing that moves conventional lines between carriers and agency management systems.
+## Where to find this API
 
-A note on language: Resilience's material describes integrating with a client's cloud services and internal systems for continuous risk assessment. That is Resilience *consuming* customer-side APIs as an inbound data collector — not *publishing* one.
-
-## Products
-
-- Cyber Insurance — <https://cyberresilience.com/products/cyber-insurance/>
-- Technology Errors & Omissions — <https://cyberresilience.com/products/technology-errors-and-omissions-insurance/>
-- Claims & Incident Response — <https://cyberresilience.com/products/claims-incident-response/>
-- Threatonomics Risk Graph — <https://cyberresilience.com/products/threatonomics-risk-graph/>
-- Security Investment Prioritization — <https://cyberresilience.com/products/security-investment-prioritization/>
-- Multi-Entity & Portfolio Risk — <https://cyberresilience.com/products/multi-entity-and-portfolio-risk/>
-- Risk Operations Center — <https://cyberresilience.com/risk-operations-center/>
-
-## Links
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://cyberresilience.com/)
-- [Blog](https://cyberresilience.com/blog/) · [RSS](https://cyberresilience.com/?feed=rss2)
-- [Brokers](https://cyberresilience.com/brokers/)
-- [Client / Broker Portal (login required)](https://portal.cyberresilience.com/)
-- [Trust Center](https://trust.cyberresilience.com/)
-- [LinkedIn](https://www.linkedin.com/company/resilience-cyber/)
-- [X](https://x.com/ResilienceSays)
-- [YouTube](https://www.youtube.com/@Cyber.Resilience)
-- [Careers](https://job-boards.greenhouse.io/resilience)
+- [Sign up](https://portal.cyberresilience.com/)
+- [Support](https://cyberresilience.com/contact-us/)
+- [Blog](https://cyberresilience.com/blog/)
+- [Compliance](https://trust.cyberresilience.com/)
+- [Trust centre](https://trust.cyberresilience.com/)
+- [Terms of service](https://cyberresilience.com/terms-and-conditions/)
+- [Privacy policy](https://cyberresilience.com/privacy-policy/)
 
-## Review
+## API Evangelist rating
 
-See [`review.yml`](review.yml) for the full probe log, HTTP statuses, ACORD evidence, and auth model.
+**Kin Score 19.2** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 11.9 |
+| Access clarity | 22.4 |
+
+**Agent readiness 2.5** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 34.2** — Insurance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/resilience-cyber/](https://apis.io/providers/resilience-cyber/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Resilience: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/resilience-cyber/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
